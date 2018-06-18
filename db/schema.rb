@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 2018_06_08_140703) do
   end
 
   create_table "subscriptions", force: :cascade do |t|
+    t.string "url"
+    t.string "name"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

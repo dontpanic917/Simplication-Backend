@@ -17,7 +17,7 @@ Rails.application.configure do
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
 
-    config.cache_store = :memory_store
+    config.cache_store = :redis_store
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
@@ -26,6 +26,9 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
+
+  #queue adapter
+  config.active_job.queue_adapter = :sidekiq
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
@@ -38,6 +41,15 @@ Rails.application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
+
+  config.action_cable.url = 'http://localhost:4000/cable'
+  config.web_socket_server_url = 'ws://localhost:4000/cable'
+  config.action_cable.allowed_request_origins = [
+   # Local address of our RoR server
+   'http://localhost:4000',
+   # Local address we use for our React standalone client
+   'http://localhost:3000',
+]
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 

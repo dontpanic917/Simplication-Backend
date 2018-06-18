@@ -3,14 +3,14 @@ class SubscriptionsController < ApplicationController
 
   # GET /subscriptions
   def index
-    @subscriptions = Subscription.all
-
-    render json: @subscriptions
+    subscriptionObj = {}
+    @current_user.subscriptions.map {|scrip| subscriptionObj[scrip.name] = {feedUrl: scrip.url, items:{}}}
+    render json: subscriptionObj
   end
 
   # GET /subscriptions/1
   def show
-    render json: @subscription
+
   end
 
   # POST /subscriptions
