@@ -46,6 +46,6 @@ class SubscriptionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def subscription_params
-      params.fetch(:subscription, {})
+      params.fetch(:subscription)
     end
 end
