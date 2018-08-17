@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 2018_06_08_140703) do
   end
 
   create_table "bookmarks", force: :cascade do |t|
+    t.string "creator"
+    t.string "title"
+    t.string "link"
+    t.string "pubDate"
+    t.string "content"
+    t.string "guid"
+    t.boolean "read"
+    t.string "encodedContent"
     t.string "headline"
     t.string "body"
     t.boolean "public"
@@ -58,7 +66,11 @@ ActiveRecord::Schema.define(version: 2018_06_08_140703) do
   end
 
   create_table "subscriptions", force: :cascade do |t|
-    t.string "url"
+    t.string "feedUrl"
+    t.string "title"
+    t.string "description"
+    t.string "link"
+    t.string "generator"
     t.string "name"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -67,6 +79,7 @@ ActiveRecord::Schema.define(version: 2018_06_08_140703) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "name"
     t.string "username"
     t.string "email"
     t.string "password_digest"

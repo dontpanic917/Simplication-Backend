@@ -1,10 +1,11 @@
 class SubscriptionsController < ApplicationController
+  before_action :authorize_request
   before_action :set_subscription, only: [:show, :update, :destroy]
 
   # GET /subscriptions
   def index
     subscriptionObj = {}
-    @current_user.subscriptions.map {|scrip| subscriptionObj[scrip.name] = {feedUrl: scrip.url, items:{}}}
+    @current_user.subscriptions.map {|scrip| subscriptionObj[scrip.name] = {feedUrl: scrip.feedUrl, items:{}}}
     render json: subscriptionObj
   end
 
@@ -18,7 +19,9 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.new(subscription_params)
 
     if @subscription.save
-      render json: @subscription, status: :created, location: @subscription
+      subscriptionObj = {}
+      subscriptionObj[@subscription.name] = {feedUrl: @subscription.feedUrl, items: {}}
+      render json: subscriptionObj, status: :created, location: @subscription
     else
       render json: @subscription.errors, status: :unprocessable_entity
     end
@@ -46,6 +49,6 @@ class SubscriptionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def subscription_params
-      params.fetch(:subscription)
+      params.require(:subscription).permit(:name, :feedUrl).merge(user_id: current_user.id)
     end
 end

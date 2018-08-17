@@ -8,5 +8,5 @@
 
 user1 = User.create(username: 'demo', email: 'demo', password: 'demo')
 user1.bookmarks << Bookmark.create(headline: 'bingo', body: 'yeet', user_id: user1.id)
-user1.subscriptions << Subscription.create(name: 'the intercept', url: 'https://theintercept.com/feed/?lang=en', user_id: user1.id)
-user1.subscriptions << Subscription.create(name: 'NYT', url:'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml', user_id: user1.id)
+user1.subscriptions << Subscription.create(name: 'the intercept', feedUrl: 'https://theintercept.com/feed/?lang=en', user_id: user1.id)
+user1.subscriptions << Subscription.create(name: 'NYT', feedUrl:'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml', user_id: user1.id)
