@@ -7,5 +7,7 @@ persists users, feeds and posts.
 * Ruby version
 '2.3.3'
 
-* ...
-# Simplication-Backend
+todo:
+  build adapter for rss AJAX requests
+  build flyweight struct for all feeds
+  implement whenever gem for automation
